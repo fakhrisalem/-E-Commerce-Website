@@ -13,4 +13,9 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  server: {
+    watch: {
+      ignored: ['**/timessquare_3d_reveal.mp4'],
+    },
+  },
 });

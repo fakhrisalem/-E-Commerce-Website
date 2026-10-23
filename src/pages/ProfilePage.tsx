@@ -24,7 +24,7 @@ export default function ProfilePage() {
     <div className="min-h-screen pt-20 sm:pt-24 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 sm:gap-8">
-          {/* Sidebar */}
+          
           <div className="lg:col-span-1">
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
               className="bg-white dark:bg-gray-900 rounded-2xl p-5 sm:p-6 border border-gray-100 dark:border-gray-800">
@@ -41,7 +41,7 @@ export default function ProfilePage() {
                 <h2 className="font-semibold text-gray-900 dark:text-white text-sm sm:text-base">{user?.name}</h2>
                 <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{user?.email}</p>
               </div>
-              {/* Mobile: horizontal tabs scroll */}
+              
               <nav className="flex lg:flex-col gap-1 overflow-x-auto lg:overflow-visible pb-1 lg:pb-0 no-scrollbar">
                 {tabs.map((tab) => (
                   <button key={tab.id} onClick={() => setActiveTab(tab.id)}
@@ -54,7 +54,7 @@ export default function ProfilePage() {
             </motion.div>
           </div>
 
-          {/* Content */}
+          
           <div className="lg:col-span-3">
             <motion.div key={activeTab} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               className="bg-white dark:bg-gray-900 rounded-2xl p-5 sm:p-6 lg:p-8 border border-gray-100 dark:border-gray-800">

@@ -41,10 +41,10 @@ export default function HomePage() {
   return (
     <div className="min-h-screen" style={{ fontFamily: "'DM Sans', sans-serif" }}>
 
-      {/* ═══════════ HERO ═══════════ */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
+      
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-white via-slate-50 to-blue-50 dark:from-gray-950 dark:via-gray-950 dark:to-blue-950/30">
 
-        {/* Ambient orbs */}
+        
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div
             animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.3, 0.15] }}
@@ -60,10 +60,10 @@ export default function HomePage() {
           />
         </div>
 
-        {/* 3D Shoe */}
+        
         <Hero3DShoe />
 
-        {/* Text block */}
+        
         <div
           ref={heroTextRef}
           className="relative z-10 w-full px-4 sm:px-8 lg:px-16 xl:px-24
@@ -71,7 +71,7 @@ export default function HomePage() {
                      md:items-start md:text-left
                      md:max-w-[55%] lg:max-w-[50%]"
         >
-          {/* Badge */}
+          
           <motion.div
             initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -89,14 +89,14 @@ export default function HomePage() {
             Premium Sportswear Collection
           </motion.div>
 
-          {/* ── Title ── كلمة كلمة بـ DM Sans Heavy */}
+          
           <h1 className="hero-title mb-6 overflow-hidden">
             <span className="flex flex-wrap justify-center md:justify-start"
               style={{ gap: '0 0.3em', lineHeight: 1.0 }}>
               {titleWords.map((word, i) => (
                 <span key={i} className="overflow-hidden inline-block">
                   <motion.span
-                    className="inline-block"
+                    className="inline-block bg-gradient-to-br from-slate-950 via-slate-900 to-blue-700 bg-clip-text text-transparent dark:from-white dark:via-white dark:to-blue-200"
                     custom={i}
                     initial="hidden"
                     animate="visible"
@@ -107,12 +107,6 @@ export default function HomePage() {
                       fontSize: 'clamp(3.2rem, 8.5vw, 7.5rem)',
                       letterSpacing: '-0.04em',
                       lineHeight: 1.0,
-                      color: '#ffffff',
-                      /* subtle gradient overlay على الحروف */
-                      background: 'linear-gradient(160deg, #ffffff 40%, #a8c8ff 100%)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      backgroundClip: 'text',
                     }}
                   >
                     {word}
@@ -122,9 +116,9 @@ export default function HomePage() {
             </span>
           </h1>
 
-          {/* Subtitle */}
+          
           <p
-            className="hero-subtitle max-w-md mb-10"
+            className="hero-subtitle max-w-md mb-10 text-slate-600 dark:text-blue-100/85"
             style={{
               opacity: 0,
               fontFamily: "'DM Sans', sans-serif",
@@ -132,13 +126,12 @@ export default function HomePage() {
               fontSize: 'clamp(0.95rem, 1.6vw, 1.15rem)',
               lineHeight: 1.65,
               letterSpacing: '0.005em',
-              color: 'rgba(180,205,235,0.85)',
             }}
           >
             {t('home.heroSubtitle')}
           </p>
 
-          {/* Buttons */}
+          
           <div
             className="hero-buttons flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4"
             style={{ opacity: 0 }}
@@ -156,7 +149,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Scroll dot */}
+        
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -179,10 +172,10 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* CATEGORIES */}
+      
       <CategoriesSection />
 
-      {/* FEATURED */}
+      
       <section className="py-12 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8 sm:mb-12">
@@ -200,7 +193,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* BEST SELLERS */}
+      
       <section className="py-12 lg:py-20 bg-gray-100 dark:bg-[rgba(10,13,20,0.6)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8 sm:mb-12">
@@ -218,7 +211,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* NEW ARRIVALS */}
+      
       <section className="py-12 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8 sm:mb-12">
@@ -236,7 +229,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* REVIEWS */}
+      
       <ReviewsSection />
 
     </div>

@@ -1,18 +1,18 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import {
   ChevronRight, Check, CreditCard, Truck, ShoppingBag,
-  Lock, MapPin, User, Mail, Phone, ChevronDown,
+  Lock, MapPin, Mail, Phone, ChevronDown,
 } from 'lucide-react';
 import { Button, Input } from '@/components/ui';
 import { useCartStore } from '@/stores';
 import toast from 'react-hot-toast';
 
-/* ─── Schemas ─────────────────────────────────────────────────────────────── */
+
 const shippingSchema = z.object({
   firstName: z.string().min(2, 'Required'),
   lastName:  z.string().min(2, 'Required'),
@@ -34,9 +34,14 @@ const cardSchema = z.object({
 
 type ShippingData = z.infer<typeof shippingSchema>;
 type CardData     = z.infer<typeof cardSchema>;
+type PaymentMethod = {
+  id: string;
+  label: string;
+  icons: { name: string; bg: string; text: string; content: string; border?: boolean }[];
+};
 
-/* ─── Payment Methods ──────────────────────────────────────────────────────── */
-const PAYMENT_METHODS = [
+
+const PAYMENT_METHODS: PaymentMethod[] = [
   {
     id: 'card',
     label: 'Credit / Debit Card',
@@ -73,7 +78,7 @@ const PAYMENT_METHODS = [
   },
 ];
 
-/* ─── Step Indicator ──────────────────────────────────────────────────────── */
+
 const STEPS = [
   { id: 1, label: 'Shipping',  icon: MapPin      },
   { id: 2, label: 'Payment',   icon: CreditCard  },
@@ -113,14 +118,14 @@ function StepIndicator({ current }: { current: number }) {
   );
 }
 
-/* ─── Order Summary (sidebar) ─────────────────────────────────────────────── */
+
 function OrderSummary({ total, tax, shipping = 0 }: { total: number; tax: number; shipping?: number }) {
   const { items } = useCartStore();
   const [open, setOpen] = useState(false);
 
   return (
     <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden">
-      {/* mobile toggle */}
+      
       <button onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between p-4 sm:hidden">
         <span className="font-semibold text-gray-900 dark:text-white text-sm">Order Summary</span>
@@ -186,7 +191,7 @@ function OrderSummary({ total, tax, shipping = 0 }: { total: number; tax: number
   );
 }
 
-/* ─── Step 1 : Shipping ────────────────────────────────────────────────────── */
+
 function ShippingStep({ onNext }: { onNext: (data: ShippingData) => void }) {
   const { register, handleSubmit, formState: { errors } } = useForm<ShippingData>({
     resolver: zodResolver(shippingSchema),
@@ -230,7 +235,7 @@ function ShippingStep({ onNext }: { onNext: (data: ShippingData) => void }) {
         {errors.country && <p className="mt-1 text-sm text-red-500">{errors.country.message}</p>}
       </div>
 
-      {/* Shipping options */}
+      
       <div>
         <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Shipping Method</p>
         <div className="space-y-2">
@@ -263,14 +268,14 @@ function ShippingStep({ onNext }: { onNext: (data: ShippingData) => void }) {
   );
 }
 
-/* ─── Step 2 : Payment ─────────────────────────────────────────────────────── */
+
 function PaymentStep({ onNext, onBack }: { onNext: (data: { method: string; card?: CardData }) => void; onBack: () => void }) {
   const [method, setMethod] = useState('card');
   const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<CardData>({
-    resolver: cardSchema.optional() as any,
+    resolver: zodResolver(cardSchema),
   });
 
-  /* format card number with spaces */
+  
   const formatCard = (v: string) => v.replace(/\D/g, '').slice(0, 16).replace(/(.{4})/g, '$1 ').trim();
   const formatExpiry = (v: string) => {
     const digits = v.replace(/\D/g, '').slice(0, 4);
@@ -281,7 +286,7 @@ function PaymentStep({ onNext, onBack }: { onNext: (data: { method: string; card
 
   return (
     <div className="space-y-6">
-      {/* Payment method selector */}
+      
       <div>
         <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Select Payment Method</p>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
@@ -299,7 +304,7 @@ function PaymentStep({ onNext, onBack }: { onNext: (data: { method: string; card
                     style={{
                       background: ic.bg,
                       color: ic.text,
-                      border: (ic as any).border ? '1px solid #ddd' : undefined,
+                      border: ic.border ? '1px solid #ddd' : undefined,
                     }}>
                     {ic.content}
                   </span>
@@ -312,13 +317,13 @@ function PaymentStep({ onNext, onBack }: { onNext: (data: { method: string; card
         </div>
       </div>
 
-      {/* Card form */}
+      
       <AnimatePresence mode="wait">
         {method === 'card' && (
           <motion.form key="card-form" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
             onSubmit={handleSubmit((d) => submit(d))} className="space-y-4">
 
-            {/* Visual card preview */}
+            
             <div className="relative h-44 rounded-2xl overflow-hidden p-5 select-none"
               style={{ background: 'linear-gradient(135deg, #1a6fff 0%, #003087 50%, #0a0d14 100%)' }}>
               <div className="absolute inset-0 opacity-10"
@@ -464,7 +469,7 @@ function PaymentStep({ onNext, onBack }: { onNext: (data: { method: string; card
   );
 }
 
-/* ─── Step 3 : Review ─────────────────────────────────────────────────────── */
+
 function ReviewStep({
   shipping, payment, onBack, onPlace,
 }: {
@@ -481,7 +486,7 @@ function ReviewStep({
 
   return (
     <div className="space-y-5">
-      {/* Shipping summary */}
+      
       <div className="p-4 sm:p-5 rounded-2xl bg-gray-50 dark:bg-gray-800">
         <div className="flex items-center justify-between mb-3">
           <h3 className="font-semibold text-gray-900 dark:text-white text-sm flex items-center gap-2">
@@ -496,7 +501,7 @@ function ReviewStep({
         )}
       </div>
 
-      {/* Payment summary */}
+      
       <div className="p-4 sm:p-5 rounded-2xl bg-gray-50 dark:bg-gray-800">
         <div className="flex items-center justify-between mb-3">
           <h3 className="font-semibold text-gray-900 dark:text-white text-sm flex items-center gap-2">
@@ -510,7 +515,7 @@ function ReviewStep({
         </p>
       </div>
 
-      {/* Items */}
+      
       <div className="p-4 sm:p-5 rounded-2xl bg-gray-50 dark:bg-gray-800 space-y-3">
         <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Items ({items.length})</h3>
         {items.map((item) => (
@@ -545,7 +550,7 @@ function ReviewStep({
   );
 }
 
-/* ─── Success ─────────────────────────────────────────────────────────────── */
+
 function SuccessStep({ orderId }: { orderId: string }) {
   return (
     <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
@@ -568,9 +573,8 @@ function SuccessStep({ orderId }: { orderId: string }) {
   );
 }
 
-/* ─── Main Page ────────────────────────────────────────────────────────────── */
+
 export default function CheckoutPage() {
-  const navigate   = useNavigate();
   const { items, getTotalPrice, clearCart } = useCartStore();
 
   const [step,         setStep]         = useState(1);
@@ -608,7 +612,7 @@ export default function CheckoutPage() {
     <div className="min-h-screen pt-20 sm:pt-24 pb-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Header */}
+        
         {step < 4 && (
           <div className="flex items-center gap-3 mb-8">
             <Link to="/cart" className="text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors">
@@ -622,7 +626,7 @@ export default function CheckoutPage() {
           <SuccessStep orderId={orderId} />
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-10">
-            {/* Main */}
+            
             <div className="lg:col-span-2">
               <StepIndicator current={step} />
 
@@ -656,7 +660,7 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            {/* Sidebar */}
+            
             <div className="order-first lg:order-last">
               <div className="lg:sticky lg:top-28">
                 <OrderSummary total={total} tax={tax} />

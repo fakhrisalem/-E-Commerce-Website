@@ -81,7 +81,7 @@ export default function ShopPage() {
   return (
     <div className="min-h-screen pt-20 sm:pt-24 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+        
         <div className="mb-6 sm:mb-8">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -95,7 +95,7 @@ export default function ShopPage() {
           </p>
         </div>
 
-        {/* Toolbar */}
+        
         <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-5 border-b border-gray-200 dark:border-gray-800">
           <div className="flex items-center gap-2 sm:gap-4">
             <Button
@@ -137,7 +137,7 @@ export default function ShopPage() {
           </div>
         </div>
 
-        {/* Active Filters */}
+        
         {hasActiveFilters && (
           <div className="flex flex-wrap items-center gap-2 mb-4">
             <span className="text-sm text-gray-500">Active filters:</span>
@@ -161,7 +161,7 @@ export default function ShopPage() {
         )}
 
         <div className="flex gap-6">
-          {/* Sidebar — slides in on desktop, draws from left */}
+          
           <AnimatePresence initial={false}>
             {isFilterOpen && (
               <motion.aside
@@ -172,7 +172,7 @@ export default function ShopPage() {
                 className="shrink-0 overflow-hidden hidden sm:block"
               >
                 <div className="space-y-6 pr-4">
-                  {/* Category */}
+                  
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-white mb-3">{t('filter.category')}</h3>
                     <div className="space-y-1">
@@ -188,7 +188,7 @@ export default function ShopPage() {
                     </div>
                   </div>
 
-                  {/* Brand */}
+                  
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-white mb-3">{t('filter.brand')}</h3>
                     <select value={selectedBrand} onChange={(e) => setSelectedBrand(e.target.value)}
@@ -198,7 +198,7 @@ export default function ShopPage() {
                     </select>
                   </div>
 
-                  {/* Price */}
+                  
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-white mb-3">{t('filter.price')}</h3>
                     <div className="flex items-center gap-2">
@@ -212,7 +212,7 @@ export default function ShopPage() {
                     </div>
                   </div>
 
-                  {/* Colors */}
+                  
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-white mb-3">{t('filter.color')}</h3>
                     <div className="flex flex-wrap gap-2">
@@ -225,7 +225,7 @@ export default function ShopPage() {
                     </div>
                   </div>
 
-                  {/* Sizes */}
+                  
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-white mb-3">{t('filter.size')}</h3>
                     <div className="flex flex-wrap gap-2">
@@ -242,7 +242,7 @@ export default function ShopPage() {
             )}
           </AnimatePresence>
 
-          {/* Mobile filter drawer */}
+          
           <AnimatePresence>
             {isFilterOpen && (
               <motion.div
@@ -298,7 +298,7 @@ export default function ShopPage() {
             )}
           </AnimatePresence>
 
-          {/* Products Grid */}
+          
           <div className="flex-1 min-w-0">
             {filteredProducts.length === 0 ? (
               <div className="text-center py-16">

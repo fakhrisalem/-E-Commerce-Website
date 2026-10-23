@@ -24,7 +24,7 @@ export function Footer() {
   return (
     <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Newsletter Section */}
+        
         <div className="py-12 border-b border-gray-200 dark:border-gray-800">
           <div className="max-w-xl mx-auto text-center">
             <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
@@ -33,20 +33,20 @@ export function Footer() {
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               {t('footer.newsletterText')}
             </p>
-            <form className="flex gap-3 max-w-md mx-auto">
+            <form className="mx-auto flex max-w-md flex-col gap-3 sm:flex-row">
               <Input
                 type="email"
                 placeholder={t('footer.emailPlaceholder')}
                 className="flex-1"
               />
-              <Button variant="primary">{t('footer.subscribe')}</Button>
+              <Button variant="primary" className="w-full sm:w-auto">{t('footer.subscribe')}</Button>
             </form>
           </div>
         </div>
 
-        {/* Main Footer Content */}
+        
         <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Brand */}
+          
           <div>
             <Link to="/" className="inline-block mb-4">
               <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">
@@ -76,7 +76,7 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
+          
           <div>
             <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">
               {t('footer.quickLinks')}
@@ -95,7 +95,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Customer Service */}
+          
           <div>
             <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">
               {t('footer.customerService')}
@@ -114,7 +114,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact Info */}
+          
           <div>
             <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">
               {t('contact.title')}
@@ -136,12 +136,12 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
+        
         <div className="py-6 border-t border-gray-200 dark:border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-gray-500 dark:text-gray-400 text-sm">
             {new Date().getFullYear()} NOVA. {t('footer.copyright')}
           </p>
-          <div className="flex gap-6 text-sm">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm sm:justify-end">
             <Link to="#" className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
               Privacy Policy
             </Link>

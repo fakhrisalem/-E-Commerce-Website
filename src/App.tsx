@@ -53,7 +53,7 @@ function AppRoutes() {
 
 function App() {
   return (
-    <Router>
+    <Router basename={import.meta.env.BASE_URL}>
       <ScrollToTop />
       <div className="flex flex-col min-h-screen">
         <Navbar />

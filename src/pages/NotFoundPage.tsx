@@ -62,7 +62,7 @@ export default function NotFoundPage() {
           </Button>
         </motion.div>
 
-        {/* Floating Elements */}
+        
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <motion.div
             animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}

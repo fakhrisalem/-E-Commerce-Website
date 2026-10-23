@@ -15,12 +15,13 @@ const contactSchema = z.object({
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
+const contactImage = `${import.meta.env.BASE_URL}p0.jpeg`;
 
 export default function ContactPage() {
   const { t } = useTranslation();
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<ContactFormData>({ resolver: zodResolver(contactSchema) });
 
-  const onSubmit = async (_data: ContactFormData) => {
+  const onSubmit = async () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     toast.success('Message sent successfully!');
     reset();
@@ -35,7 +36,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen pt-16 sm:pt-20 pb-16">
-      {/* Hero */}
+      
       <section className="py-10 sm:py-12 lg:py-16 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center max-w-3xl mx-auto">
@@ -45,11 +46,11 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Section */}
+      
       <section className="py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16">
-            {/* Form */}
+            
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
               <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-5 sm:mb-6">Send us a message</h2>
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
@@ -67,7 +68,7 @@ export default function ContactPage() {
               </form>
             </motion.div>
 
-            {/* Info */}
+            
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
               <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-5 sm:mb-6">{t('nav.contact')}</h2>
               <div className="space-y-4 sm:space-y-6">
@@ -86,8 +87,7 @@ export default function ContactPage() {
                 ))}
               </div>
               <div className="mt-6 sm:mt-8 aspect-video rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800">
-                <img src="https://images.pexels.com/photos/207681/pexels-photo-207681.jpeg?auto=compress&cs=tinysrgb&w=800"
-                  alt="Location" className="w-full h-full object-cover opacity-80" />
+                <img src={contactImage} alt={t('contact.title')} className="w-full h-full object-cover opacity-80" />
               </div>
             </motion.div>
           </div>

@@ -16,7 +16,7 @@ const getSystemTheme = (): 'light' | 'dark' => {
 export const useThemeStore = create<ThemeState>()(
   persist(
     (set, get) => ({
-      mode: 'system',
+      mode: 'dark',
       setTheme: mode => {
         const effectiveTheme = mode === 'system' ? getSystemTheme() : mode;
         if (effectiveTheme === 'dark') {
@@ -36,6 +36,13 @@ export const useThemeStore = create<ThemeState>()(
     {
       name: 'theme-storage',
       storage: createJSONStorage(() => localStorage),
+      merge: (persistedState, currentState) => {
+        const persistedMode = (persistedState as { mode?: unknown } | undefined)?.mode;
+        const mode: ThemeMode = persistedMode === 'light' || persistedMode === 'dark'
+          ? persistedMode
+          : 'dark';
+        return { ...currentState, mode };
+      },
       onRehydrateStorage: () => state => {
         if (state) {
           const effectiveTheme = state.mode === 'system' ? getSystemTheme() : state.mode;
@@ -50,7 +57,7 @@ export const useThemeStore = create<ThemeState>()(
   )
 );
 
-// Listen for system theme changes
+
 if (typeof window !== 'undefined') {
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
     const state = useThemeStore.getState();

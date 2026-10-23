@@ -8,7 +8,7 @@ import { useTranslation } from '@/i18n';
 const BLUE = '#2563eb';
 const BLUE_LIGHT = '#3b82f6';
 
-// Mini 3D shoe card with tilt effect per category
+
 function Category3DCard({ category, index }: { category: typeof categories[0]; index: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const rawX = useMotionValue(0);
@@ -51,17 +51,17 @@ function Category3DCard({ category, index }: { category: typeof categories[0]; i
             transition={{ duration: 0.3 }}
             className="relative group rounded-2xl lg:rounded-3xl overflow-hidden aspect-square"
           >
-            {/* Category image */}
+            
             <img
               src={category.image}
               alt={category.name}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
 
-            {/* Dark overlay */}
+            
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
 
-            {/* Blue glow overlay on hover */}
+            
             <motion.div
               className="absolute inset-0 pointer-events-none"
               style={{
@@ -72,7 +72,7 @@ function Category3DCard({ category, index }: { category: typeof categories[0]; i
               transition={{ duration: 0.4 }}
             />
 
-            {/* Animated border */}
+            
             <motion.div
               className="absolute inset-0 rounded-2xl lg:rounded-3xl pointer-events-none"
               style={{ border: `1px solid ${BLUE_LIGHT}00` }}
@@ -80,7 +80,7 @@ function Category3DCard({ category, index }: { category: typeof categories[0]; i
               transition={{ duration: 0.4 }}
             />
 
-            {/* Sparkle in top-right */}
+            
             <motion.div
               className="absolute top-3 right-3 pointer-events-none"
               animate={{ rotate: [0, 180, 360], scale: [1, 1.3, 1] }}
@@ -89,7 +89,7 @@ function Category3DCard({ category, index }: { category: typeof categories[0]; i
               <Sparkles className="w-4 h-4" style={{ color: BLUE_LIGHT, opacity: 0.7 }} />
             </motion.div>
 
-            {/* Floating light particle */}
+            
             <motion.div
               className="absolute rounded-full pointer-events-none"
               style={{
@@ -104,7 +104,7 @@ function Category3DCard({ category, index }: { category: typeof categories[0]; i
               transition={{ duration: 3 + index * 0.4, repeat: Infinity, ease: 'easeInOut' }}
             />
 
-            {/* Content */}
+            
             <div className="absolute bottom-0 left-0 right-0 p-4 lg:p-6" style={{ transform: 'translateZ(30px)' }}>
               <h3 className="text-xl lg:text-2xl font-bold text-white mb-1">{category.name}</h3>
               <p className="text-gray-300 text-sm hidden lg:block mb-3">{category.description}</p>
@@ -137,7 +137,7 @@ export function CategoriesSection() {
 
   return (
     <section className="relative py-16 lg:py-24 bg-gray-50 dark:bg-gray-900 overflow-hidden">
-      {/* Background particles */}
+      
       {particles.map((p, i) => (
         <motion.div
           key={`cat-p-${i}`}
@@ -155,7 +155,7 @@ export function CategoriesSection() {
         />
       ))}
 
-      {/* Background orb */}
+      
       <motion.div
         className="absolute pointer-events-none"
         style={{
@@ -179,7 +179,7 @@ export function CategoriesSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          {/* Glowing badge */}
+          
           <motion.div
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-4"
             style={{
@@ -198,7 +198,7 @@ export function CategoriesSection() {
             {t('home.featuredCategories')}
           </h2>
 
-          {/* Animated underline */}
+          
           <motion.div
             className="h-1 rounded-full mx-auto"
             style={{ background: `linear-gradient(90deg, transparent, ${BLUE}, transparent)` }}

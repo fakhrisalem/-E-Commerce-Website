@@ -24,7 +24,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
     ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
     : 0;
 
-  // Magnetic effect
+  
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -89,7 +89,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           transition={{ duration: 0.3, ease: 'easeOut' }}
           className="group relative bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-soft hover:shadow-soft-lg transition-shadow duration-500"
         >
-          {/* Image Container */}
+          
           <div className="relative aspect-square overflow-hidden">
             <motion.img
               src={product.images[0]}
@@ -109,7 +109,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
               />
             )}
 
-            {/* Badges */}
+            
             <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
               {discount > 0 && (
                 <Badge variant="sale">-{discount}%</Badge>
@@ -118,7 +118,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
               {product.isBestSeller && <Badge variant="bestseller">Best Seller</Badge>}
             </div>
 
-            {/* Wishlist Button */}
+            
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={handleToggleWishlist}
@@ -132,7 +132,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
               <Heart className={`w-5 h-5 ${isInWishlistNow ? 'fill-current' : ''}`} />
             </motion.button>
 
-            {/* Action Buttons - Show on Hover */}
+            
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 20 }}
@@ -158,7 +158,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             </motion.div>
           </div>
 
-          {/* Product Info */}
+          
           <div className="p-4">
             <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">
               {product.brand}
@@ -167,7 +167,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
               {product.name}
             </h3>
 
-            {/* Colors */}
+            
             <div className="flex items-center gap-1.5 mb-3">
               {product.colors.slice(0, 4).map((color, idx) => (
                 <span
@@ -182,12 +182,12 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
               )}
             </div>
 
-            {/* Rating */}
+            
             <div className="mb-3">
               <Rating value={product.rating} size="sm" />
             </div>
 
-            {/* Price */}
+            
             <div className="flex items-center gap-2">
               <span className="text-lg font-bold text-gray-900 dark:text-gray-100">
                 ${product.price.toFixed(2)}

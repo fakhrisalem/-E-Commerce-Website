@@ -5,25 +5,27 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const publicAsset = (filename: string) => `${import.meta.env.BASE_URL}${filename}`;
+
 const ELECTRIC    = '#1a6fff';
 const ELECTRIC_LT = '#4d9fff';
 const SILVER      = '#8ab4d4';
 const NAVY        = '#0a1628';
 
 const ORBIT_SHOES = [
-  { src: '/aero-trainer-clean.png',   name: 'Aero Trainer',    color: '#4d9fff' },
-  { src: '/trail-blazer-clean.png',   name: 'Trail Blazer',    color: '#ff6b35' },
-  { src: '/court-dominion-clean.png', name: 'Court Dominion',  color: '#c084fc' },
-  { src: '/speed-rocket-clean.png',   name: 'Speed Rocket',    color: '#4ade80' },
+  { src: publicAsset('aero-trainer-clean.png'),   name: 'Aero Trainer',    color: '#4d9fff' },
+  { src: publicAsset('trail-blazer-clean.png'),   name: 'Trail Blazer',    color: '#ff6b35' },
+  { src: publicAsset('court-dominion-clean.png'), name: 'Court Dominion',  color: '#c084fc' },
+  { src: publicAsset('speed-rocket-clean.png'),   name: 'Speed Rocket',    color: '#4ade80' },
 ];
 
-// ─────────────────────────────────────────────
-//  Phases:
-//  'hidden'   → shoes invisible inside center
-//  'emerging' → shoes fly out one by one
-//  'orbiting' → shoes orbit freely
-//  'merging'  → shoes fly back to center
-// ─────────────────────────────────────────────
+
+
+
+
+
+
+
 type Phase = 'hidden' | 'emerging' | 'orbiting' | 'merging';
 
 interface OrbitShoeProps {
@@ -46,13 +48,13 @@ function OrbitShoe({
   onMergeDone,
 }: OrbitShoeProps) {
 
-  // ── motion values for manual x/y/scale/opacity ──
+  
   const mX  = useMotionValue(0);
   const mY  = useMotionValue(0);
   const mSc = useMotionValue(0.01);
   const mOp = useMotionValue(0);
 
-  // ── continuous orbit via rAF ──
+  
   const rafRef   = useRef<number>(0);
   const isOrbit  = phase === 'orbiting';
 
@@ -73,18 +75,18 @@ function OrbitShoe({
     return () => cancelAnimationFrame(rafRef.current);
   }, [isOrbit, orbitStartTime, index, totalShoes, radius, orbitDuration, mX, mY, mSc, mOp]);
 
-  // ── EMERGE: fly out from center ──
+  
   useEffect(() => {
     if (phase !== 'emerging') return;
 
-    // stagger: each shoe emerges 300ms after previous
+    
     const delay = index * 300;
 
     const targetAngle = (index / totalShoes) * 360 * (Math.PI / 180);
     const tx = Math.cos(targetAngle) * radius;
     const ty = Math.sin(targetAngle) * radius * 0.38;
 
-    // start from center (0,0), scale 0, opacity 0
+    
     mX.set(0); mY.set(0); mSc.set(0.01); mOp.set(0);
 
     const timer = setTimeout(() => {
@@ -99,9 +101,9 @@ function OrbitShoe({
     }, delay);
 
     return () => clearTimeout(timer);
-  }, [phase]); // eslint-disable-line
+  }, [phase]); 
 
-  // ── MERGE: fly back to center ──
+  
   useEffect(() => {
     if (phase !== 'merging') return;
 
@@ -119,7 +121,7 @@ function OrbitShoe({
     }, delay);
 
     return () => clearTimeout(timer);
-  }, [phase]); // eslint-disable-line
+  }, [phase]); 
 
   if (phase === 'hidden') return null;
 
@@ -135,7 +137,7 @@ function OrbitShoe({
         translateY: '-50%',
       }}
     >
-      {/* Halo */}
+      
       <motion.div
         style={{
           position: 'absolute', inset: '-22%', borderRadius: '50%',
@@ -155,15 +157,15 @@ function OrbitShoe({
   );
 }
 
-// ─────────────────────────────────────────────
-//  Hero3DShoe — Main Component
-// ─────────────────────────────────────────────
+
+
+
 export function Hero3DShoe() {
   const containerRef = useRef<HTMLDivElement>(null);
   const shoeWrapRef  = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // ── mouse tilt ──
+  
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
   const sp   = { stiffness: 55, damping: 22, mass: 0.9 };
@@ -184,24 +186,23 @@ export function Hero3DShoe() {
   }, [rawX, rawY]);
   const handleMouseLeave = useCallback(() => { rawX.set(0); rawY.set(0); }, [rawX, rawY]);
 
-  // ── Auto animation state machine ──
+  
   const [phase,          setPhase]          = useState<Phase>('hidden');
   const [mergedCount,    setMergedCount]    = useState(0);
   const [showFlash,      setShowFlash]      = useState(false);
   const [orbitStartTime, setOrbitStartTime] = useState(0);
 
-  // Timeline (all in ms):
-  // 0s    → page load
-  // 1.5s  → start emerging (staggered 300ms each = last at 2.4s + 0.9s anim = done ~3.3s)
-  // 3.5s  → switch to orbiting
-  // 8.5s  → start merging
-  // 10.5s → flash, reset, loop
+  
+  
+  
+  
+  
+  
 
   const EMERGE_START   = 1500;
   const ORBIT_START    = 3500;
   const MERGE_START    = 8500;
-  const FLASH_DURATION = 1400;
-  const CYCLE_TOTAL    = 11500; // full cycle before loop
+  const CYCLE_TOTAL    = 11500; 
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -232,7 +233,7 @@ export function Hero3DShoe() {
 
       timers.push(setTimeout(() => {
         setShowFlash(false);
-        // loop
+        
         timers = [];
         run();
       }, CYCLE_TOTAL));
@@ -241,7 +242,7 @@ export function Hero3DShoe() {
     run();
 
     return () => timers.forEach(clearTimeout);
-  }, [isLoaded]); // eslint-disable-line
+  }, [isLoaded]); 
 
   const handleMergeDone = () => {
     setMergedCount(prev => prev + 1);
@@ -251,7 +252,7 @@ export function Hero3DShoe() {
     // called when last shoe finishes emerging (already handled by timeout)
   };
 
-  // ── GSAP scroll parallax ──
+  
   useEffect(() => {
     if (!shoeWrapRef.current) return;
     const ctx = gsap.context(() => {
@@ -309,7 +310,7 @@ export function Hero3DShoe() {
       style={{ perspective: '1200px' }}
     >
 
-      {/* ── Flash on merge complete ── */}
+      
       {showFlash && (
         <motion.div
           className="absolute inset-0 pointer-events-none z-50"
@@ -320,7 +321,7 @@ export function Hero3DShoe() {
         />
       )}
 
-      {/* ── Scan lines ── */}
+      
       {[0, 4].map((delay, i) => (
         <motion.div
           key={`scan-${i}`}
@@ -331,7 +332,7 @@ export function Hero3DShoe() {
         />
       ))}
 
-      {/* ── Ambient orbs ── */}
+      
       {orbs.map((o,i) => (
         <motion.div
           key={`orb-${i}`}
@@ -342,7 +343,7 @@ export function Hero3DShoe() {
         />
       ))}
 
-      {/* ── Floating particles ── */}
+      
       {particles.map((p,i) => (
         <motion.div
           key={`p-${i}`}
@@ -368,7 +369,7 @@ export function Hero3DShoe() {
               className="relative"
             >
 
-              {/* Glow behind shoe */}
+              
               <motion.div
                 className="absolute pointer-events-none"
                 style={{ inset:'-30%', borderRadius:'50%', background:`radial-gradient(ellipse at ${glowX} ${glowY},${ELECTRIC}55 0%,${NAVY}33 40%,transparent 70%)`, filter:'blur(36px)' }}
@@ -376,7 +377,7 @@ export function Hero3DShoe() {
                 transition={{ duration:5, repeat:Infinity, ease:'easeInOut' }}
               />
 
-              {/* Extra glow after merge */}
+              
               {allMerged && (
                 <motion.div
                   className="absolute pointer-events-none"
@@ -386,7 +387,7 @@ export function Hero3DShoe() {
                 />
               )}
 
-              {/* Orbit rings */}
+              
               <motion.div
                 className="absolute pointer-events-none"
                 style={{ inset:'-18%', borderRadius:'50%', border:`1px solid ${SILVER}25`, boxShadow:`0 0 20px 4px ${ELECTRIC}18` }}
@@ -400,7 +401,7 @@ export function Hero3DShoe() {
                 transition={{ duration:34, repeat:Infinity, ease:'linear' }}
               />
 
-              {/* ══ ORBIT SHOES ══ */}
+              
               <div
                 className="absolute inset-0 flex items-center justify-center pointer-events-none"
                 style={{ zIndex:20 }}
@@ -419,19 +420,12 @@ export function Hero3DShoe() {
                 ))}
               </div>
 
-              {/* ══ Main Hero Shoe ══ */}
+              
               <motion.img
-                src="/hero-sneaker-nobg.png"
+                src={publicAsset('hero-sneaker-nobg.png')}
                 alt="Premium Sports Sneaker"
                 className="relative z-10 w-[360px] md:w-[480px] lg:w-[620px] xl:w-[720px] object-contain select-none"
                 onLoad={() => setIsLoaded(true)}
-                onError={(e) => {
-                  const img = e.currentTarget;
-                  if (!img.src.includes('fallback')) {
-                    img.src = '/hero-sneaker-B3rIUcQ3.jpg';
-                    setIsLoaded(true);
-                  }
-                }}
                 animate={allMerged ? {
                   filter:[
                     'drop-shadow(0 30px 60px rgba(26,111,255,0.65)) drop-shadow(0 8px 25px rgba(0,0,0,0.9)) drop-shadow(0 0 80px rgba(26,111,255,0.30))',
@@ -447,13 +441,13 @@ export function Hero3DShoe() {
                 draggable={false}
               />
 
-              {/* Reflection */}
+              
               <div
                 className="absolute left-1/2 -translate-x-1/2 pointer-events-none overflow-hidden"
                 style={{ bottom:'-15%', width:'80%', height:'28%' }}
               >
                 <motion.img
-                  src="/hero-sneaker-nobg.png" alt="" aria-hidden="true"
+                  src={publicAsset('hero-sneaker-nobg.png')} alt="" aria-hidden="true"
                   className="w-full object-contain"
                   style={{
                     transform:'scaleY(-1)',
@@ -466,7 +460,7 @@ export function Hero3DShoe() {
                 />
               </div>
 
-              {/* Floor glow */}
+              
               <motion.div
                 className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
                 style={{ bottom:'-20%', width:'60%', height:24, background:`radial-gradient(ellipse at 50% 50%,${ELECTRIC}55 0%,rgba(0,0,0,0.2) 55%,transparent 80%)`, filter:'blur(12px)', borderRadius:'50%' }}

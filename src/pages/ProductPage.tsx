@@ -71,7 +71,7 @@ export default function ProductPage() {
   return (
     <div className="min-h-screen pt-20 sm:pt-24 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Breadcrumb */}
+        
         <nav className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-6 sm:mb-8 overflow-x-auto no-scrollbar">
           <Link to="/" className="hover:text-gray-900 dark:hover:text-white transition-colors whitespace-nowrap">{t('nav.home')}</Link>
           <span>/</span>
@@ -81,7 +81,7 @@ export default function ProductPage() {
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
-          {/* Product Gallery */}
+          
           <div className="space-y-3 sm:space-y-4">
             <motion.div
               ref={imageRef}
@@ -118,7 +118,7 @@ export default function ProductPage() {
               </div>
             </motion.div>
 
-            {/* Thumbnails */}
+            
             <div className="flex gap-2 sm:gap-3 overflow-x-auto pb-2 no-scrollbar">
               {product.images.map((image, index) => (
                 <motion.button key={index} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
@@ -130,7 +130,7 @@ export default function ProductPage() {
             </div>
           </div>
 
-          {/* Product Info */}
+          
           <div className="space-y-4 sm:space-y-5">
             <div>
               <p className="text-xs sm:text-sm text-gray-500 uppercase tracking-wide mb-1">{product.brand}</p>
@@ -149,7 +149,7 @@ export default function ProductPage() {
 
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm sm:text-base">{product.shortDescription}</p>
 
-            {/* Color */}
+            
             <div>
               <h3 className="font-medium text-gray-900 dark:text-white mb-3 text-sm sm:text-base">
                 {t('product.selectColor')}
@@ -170,7 +170,7 @@ export default function ProductPage() {
               </div>
             </div>
 
-            {/* Size */}
+            
             <div>
               <h3 className="font-medium text-gray-900 dark:text-white mb-3 text-sm sm:text-base">{t('product.selectSize')}</h3>
               <div className="flex flex-wrap gap-2">
@@ -183,13 +183,13 @@ export default function ProductPage() {
               </div>
             </div>
 
-            {/* Quantity */}
+            
             <div>
               <h3 className="font-medium text-gray-900 dark:text-white mb-3 text-sm sm:text-base">{t('product.quantity')}</h3>
               <QuantitySelector value={quantity} onChange={setQuantity} min={1} max={product.stock} />
             </div>
 
-            {/* Stock */}
+            
             <div className="text-sm sm:text-base">
               {product.stock > 10 ? (
                 <span className="text-success-600 flex items-center gap-1">
@@ -202,7 +202,7 @@ export default function ProductPage() {
               )}
             </div>
 
-            {/* Action Buttons */}
+            
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <Button size="lg" className="flex-1" leftIcon={<ShoppingCart className="w-5 h-5" />}
                 onClick={handleAddToCart} disabled={product.stock === 0}>
@@ -218,7 +218,7 @@ export default function ProductPage() {
               </Button>
             </div>
 
-            {/* Features */}
+            
             <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-4 border-t border-gray-200 dark:border-gray-800">
               <div className="text-center">
                 <Truck className="w-5 h-5 sm:w-6 sm:h-6 mx-auto mb-1 sm:mb-2 text-gray-400" />
@@ -236,7 +236,7 @@ export default function ProductPage() {
           </div>
         </div>
 
-        {/* Description */}
+        
         <div className="mt-12 sm:mt-16">
           <div className="border-b border-gray-200 dark:border-gray-800">
             <div className="flex gap-6 sm:gap-8 overflow-x-auto no-scrollbar">
@@ -253,7 +253,7 @@ export default function ProductPage() {
           </div>
         </div>
 
-        {/* Reviews */}
+        
         {productReviews.length > 0 && (
           <div className="mt-6 sm:mt-8 space-y-4 sm:space-y-6">
             {productReviews.map((review) => (
@@ -277,7 +277,7 @@ export default function ProductPage() {
           </div>
         )}
 
-        {/* Related Products */}
+        
         {relatedProducts.length > 0 && (
           <div className="mt-12 sm:mt-16">
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-6 sm:mb-8">

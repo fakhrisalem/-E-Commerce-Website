@@ -48,7 +48,7 @@ export default function CartPage() {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Cart Items */}
+          
           <div className="lg:col-span-2 space-y-4">
             <AnimatePresence>
               {items.map((item, index) => (
@@ -108,7 +108,7 @@ export default function CartPage() {
             </AnimatePresence>
           </div>
 
-          {/* Order Summary */}
+          
           <div className="lg:sticky lg:top-28 h-fit">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -148,7 +148,7 @@ export default function CartPage() {
                 </div>
               </div>
 
-              {/* ✅ هنا التعديل - Link يلف الـ Button */}
+              
               <Link to="/checkout" className="block w-full">
                 <Button className="w-full" size="lg">
                   {t('cart.checkout')}

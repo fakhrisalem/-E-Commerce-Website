@@ -33,13 +33,13 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close menus on route change
+  
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setIsSearchOpen(false);
   }, [location]);
 
-  // Lock body scroll when mobile menu open
+  
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
@@ -76,23 +76,23 @@ export function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex items-center justify-between h-12">
 
-            {/* ── Logo ── */}
+            
             <Link to="/" className="relative z-10 flex-shrink-0">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex items-center gap-2">
-                <svg width="36" height="36" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="36" height="36" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 sm:h-9 sm:w-9">
                   <circle cx="19" cy="19" r="18" className="fill-gray-900 dark:fill-white" />
                   <path d="M11 24 L16 12 L20 18 L24 12 L27 24" stroke="white" strokeWidth="2.5"
                     strokeLinecap="round" strokeLinejoin="round" className="dark:stroke-gray-900" fill="none" />
                   <path d="M9 27 L29 27" stroke="white" strokeWidth="2"
                     strokeLinecap="round" className="dark:stroke-gray-900" />
                 </svg>
-                <span className="text-2xl font-black tracking-widest text-gray-900 dark:text-white" style={{ letterSpacing: '0.15em' }}>
+                <span className="text-xl font-black tracking-widest text-gray-900 dark:text-white sm:text-2xl" style={{ letterSpacing: '0.15em' }}>
                   NOVA
                 </span>
               </motion.div>
             </Link>
 
-            {/* ── Desktop Nav Links ── */}
+            
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
                 <Link key={link.href} to={link.href}>
@@ -114,36 +114,36 @@ export function Navbar() {
               ))}
             </div>
 
-            {/* ── Right Icons ── */}
-            <div className="flex items-center gap-1">
+            
+            <div className="flex items-center gap-0 sm:gap-1">
 
-              {/* Search */}
+              
               <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
                 onClick={() => setIsSearchOpen(true)}
-                className="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="p-1.5 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors sm:p-2"
               >
                 <Search className="w-5 h-5" />
               </motion.button>
 
-              {/* Theme */}
+              
               <motion.button whileHover={{ scale: 1.1, rotate: 15 }} whileTap={{ scale: 0.9 }}
                 onClick={toggleTheme}
-                className="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="hidden rounded-full p-1.5 text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 sm:flex sm:p-2"
               >
                 <AnimatePresence mode="wait">
                   {isDark ? (
                     <motion.div key="sun" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
-                      <Sun className="w-5 h-5" />
+                      <Sun className="h-5 w-5" />
                     </motion.div>
                   ) : (
                     <motion.div key="moon" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
-                      <Moon className="w-5 h-5" />
+                      <Moon className="h-5 w-5" />
                     </motion.div>
                   )}
                 </AnimatePresence>
               </motion.button>
 
-              {/* Language — hidden on very small screens */}
+              
               <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
                 onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
                 className="hidden sm:flex items-center gap-1 p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
@@ -152,10 +152,10 @@ export function Navbar() {
                 <span className="text-xs font-medium uppercase">{language}</span>
               </motion.button>
 
-              {/* Wishlist */}
+              
               <Link to="/wishlist">
                 <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
-                  className="relative p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  className="relative rounded-full p-1.5 text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 sm:p-2"
                 >
                   <Heart className="w-5 h-5" />
                   {wishlistCount > 0 && (
@@ -168,10 +168,10 @@ export function Navbar() {
                 </motion.div>
               </Link>
 
-              {/* Cart */}
+              
               <Link to="/cart">
                 <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
-                  className="relative p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  className="relative rounded-full p-1.5 text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 sm:p-2"
                 >
                   <ShoppingCart className="w-5 h-5" />
                   {cartCount > 0 && (
@@ -184,7 +184,7 @@ export function Navbar() {
                 </motion.div>
               </Link>
 
-              {/* Auth — desktop only */}
+              
               <div className="hidden md:flex items-center gap-2 ml-1">
                 {isAuthenticated ? (
                   <>
@@ -209,11 +209,11 @@ export function Navbar() {
                 )}
               </div>
 
-              {/* ── Hamburger Button (mobile only) ── */}
+              
               <motion.button
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden ml-1 p-2 rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="ml-0 rounded-full p-1.5 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 md:hidden sm:ml-1 sm:p-2"
                 aria-label="Toggle menu"
               >
                 <AnimatePresence mode="wait">
@@ -232,7 +232,7 @@ export function Navbar() {
           </nav>
         </div>
 
-        {/* ── Mobile Menu Dropdown ── */}
+        
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -245,7 +245,7 @@ export function Navbar() {
             >
               <div className="px-6 pt-4 pb-8 space-y-1">
 
-                {/* Nav Links */}
+                
                 {navLinks.map((link, i) => (
                   <motion.div
                     key={link.href}
@@ -270,7 +270,7 @@ export function Navbar() {
                   </motion.div>
                 ))}
 
-                {/* Language switcher */}
+                
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -286,7 +286,22 @@ export function Navbar() {
                   </button>
                 </motion.div>
 
-                {/* Auth buttons */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: navLinks.length * 0.06 + 0.05 }}
+                  className="sm:hidden"
+                >
+                  <button
+                    onClick={toggleTheme}
+                    className="flex w-full items-center gap-3 border-b border-gray-50 py-3 text-base font-medium text-gray-700 dark:border-gray-800 dark:text-gray-300"
+                  >
+                    {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                    <span>{isDark ? t('nav.lightMode') : t('nav.darkMode')}</span>
+                  </button>
+                </motion.div>
+
+                
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -317,7 +332,7 @@ export function Navbar() {
         </AnimatePresence>
       </motion.header>
 
-      {/* ── Search Modal ── */}
+      
       <AnimatePresence>
         {isSearchOpen && (
           <>
